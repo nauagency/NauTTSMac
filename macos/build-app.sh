@@ -18,7 +18,7 @@ cp "$repo_root/.build/release/NauTTSMac" "$contents/MacOS/NauTTSMac"
 cp "$repo_root/macos/Info.plist" "$contents/Info.plist"
 /usr/libexec/PlistBuddy -c "Set :NauTTSProjectRoot $repo_root" "$contents/Info.plist"
 
-sips -c 1024 1024 "$source_icon" --out "$square_icon" >/dev/null
+cp "$source_icon" "$square_icon"
 
 for size in 16 32 128 256 512; do
     double=$((size * 2))

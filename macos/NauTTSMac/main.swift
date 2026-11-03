@@ -17,6 +17,36 @@ private struct VoiceProfile: Codable, Identifiable, Hashable, Sendable {
     var transcript: String
     let createdAt: Date
     var provider: String?
+    var gender: String?
+    var tone: String?
+}
+
+private struct GeneratedAudio: Codable, Identifiable, Sendable {
+    let id: UUID
+    let filePath: String
+    let voiceName: String
+    let createdAt: Date
+    let text: String?
+    var url: URL { URL(fileURLWithPath: filePath) }
+}
+
+private enum HomeSection: String, CaseIterable, Identifiable {
+    case voices = "Voice"
+    case audio = "Âm thanh đã tạo"
+    var id: Self { self }
+}
+
+private enum VoiceGender: String, CaseIterable, Identifiable {
+    case all = "Tất cả", female = "Nữ", male = "Nam", neutral = "Trung tính", unknown = "Chưa phân loại"
+    var id: Self { self }
+}
+
+private enum VoiceSort: String, CaseIterable, Identifiable {
+    case provider = "Nguồn"
+    case gender = "Giới tính"
+    case tone = "Tông giọng"
+    case name = "Tên"
+    var id: Self { self }
 }
 
 private enum AppPage: String, CaseIterable, Identifiable {
@@ -89,32 +119,75 @@ private final class AppModel: ObservableObject {
     @Published var profiles: [VoiceProfile] = []
     @Published var voices = ["Bella", "Bruno", "Hugo", "Jasper", "Kiki", "Leo", "Luna", "Rosie"]
     @Published var loadingVoices = false
-    @Published var source = VoiceSource.builtIn
     @Published var selectedVoice = "Bruno"
     @Published var selectedProfileID: UUID?
+    @Published var selectedCatalogID = "nau:Bruno"
     @Published var text = "Xin chào! Đây là Nau TTS đang chạy bằng MLX trên máy Mac."
     @Published var preset = "stable"
     @Published var generating = false
     @Published var status = "Sẵn sàng · MLX trên Apple Silicon"
     @Published var lastOutput: URL?
+    @Published var audioHistory: [GeneratedAudio] = []
+    @Published var genderFilter = VoiceGender.all
+    @Published var providerFilter = "Tất cả"
+    @Published var toneFilter = "Tất cả"
+    @Published var voiceSort = VoiceSort.provider
 
     private let appDirectory: URL
     private let voiceDirectory: URL
     private let indexURL: URL
+    private let historyURL: URL
 
     init() {
         let support = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask)[0]
         appDirectory = support.appendingPathComponent("Nau TTS Mac", isDirectory: true)
         voiceDirectory = appDirectory.appendingPathComponent("Voices", isDirectory: true)
         indexURL = appDirectory.appendingPathComponent("voices.json")
+        historyURL = appDirectory.appendingPathComponent("audio-history.json")
         try? FileManager.default.createDirectory(at: voiceDirectory, withIntermediateDirectories: true)
         loadProfiles()
+        loadHistory()
     }
 
-    var selectedProfile: VoiceProfile? { profiles.first { $0.id == selectedProfileID } }
+    var selectedProfile: VoiceProfile? {
+        guard selectedCatalogID.hasPrefix("profile:"),
+              let id = UUID(uuidString: String(selectedCatalogID.dropFirst("profile:".count))) else { return nil }
+        return profiles.first { $0.id == id }
+    }
+    var providers: [String] { ["Tất cả", "Nau TTS"] + Set(profiles.map { $0.provider ?? "Cục bộ" }).sorted() }
+    var tones: [String] { ["Tất cả", "Chưa phân loại"] + Set(profiles.compactMap(\.tone)).sorted() }
+    var filteredBuiltInVoices: [String] {
+        guard providerFilter == "Tất cả" || providerFilter == "Nau TTS" else { return [] }
+        guard genderFilter == .all || genderFilter == .unknown else { return [] }
+        guard toneFilter == "Tất cả" || toneFilter == "Chưa phân loại" else { return [] }
+        return voices.sorted { $0.localizedCaseInsensitiveCompare($1) == .orderedAscending }
+    }
+    var filteredProfiles: [VoiceProfile] {
+        let currentSort = voiceSort
+        return profiles.filter { profile in
+            let gender = profile.gender ?? VoiceGender.unknown.rawValue
+            return (genderFilter == .all || gender == genderFilter.rawValue)
+                && (providerFilter == "Tất cả" || (profile.provider ?? "Cục bộ") == providerFilter)
+                && (toneFilter == "Tất cả" || profile.tone == toneFilter)
+        }.sorted { left, right in
+            func key(_ profile: VoiceProfile) -> String {
+                let provider = profile.provider ?? "Cục bộ"
+                let gender = profile.gender ?? VoiceGender.unknown.rawValue
+                let tone = profile.tone ?? ""
+                switch currentSort {
+                case .provider: return [provider, gender, tone, profile.name].joined(separator: "|")
+                case .gender: return [gender, provider, tone, profile.name].joined(separator: "|")
+                case .tone: return [tone, provider, gender, profile.name].joined(separator: "|")
+                case .name: return profile.name
+                }
+            }
+            return key(left).localizedCaseInsensitiveCompare(key(right)) == .orderedAscending
+        }
+    }
+    var availableVoiceCount: Int { voices.count + profiles.filter { ($0.provider ?? "Cục bộ") != "Cục bộ" }.count }
     var canGenerate: Bool {
         !generating && !text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty &&
-        (source == .builtIn || selectedProfile != nil)
+        (selectedCatalogID.hasPrefix("nau:") || selectedProfile != nil)
     }
     func audioURL(_ profile: VoiceProfile) -> URL { voiceDirectory.appendingPathComponent(profile.audioFileName) }
 
@@ -138,10 +211,11 @@ private final class AppModel: ObservableObject {
         try FileManager.default.copyItem(at: source, to: destination)
         profiles.insert(VoiceProfile(id: id, name: name, audioFileName: fileName,
                                      transcript: transcript.trimmingCharacters(in: .whitespacesAndNewlines),
-                                     createdAt: Date(), provider: "Cục bộ"), at: 0)
+                                     createdAt: Date(), provider: "Cục bộ",
+                                     gender: VoiceGender.unknown.rawValue, tone: "Tự tạo"), at: 0)
         try saveProfiles()
         selectedProfileID = id
-        self.source = .created
+        selectedCatalogID = "profile:\(id)"
         status = "Đã lưu giọng \(name)."
     }
 
@@ -151,8 +225,8 @@ private final class AppModel: ObservableObject {
         if selectedProfileID == profile.id { selectedProfileID = profiles.first?.id }
         try? saveProfiles()
     }
-    func use(_ voice: String) { selectedVoice = voice; source = .builtIn; page = .create }
-    func use(_ profile: VoiceProfile) { selectedProfileID = profile.id; source = .created; page = .create }
+    func use(_ voice: String) { selectedVoice = voice; selectedCatalogID = "nau:\(voice)"; page = .create }
+    func use(_ profile: VoiceProfile) { selectedProfileID = profile.id; selectedCatalogID = "profile:\(profile.id)"; page = .create }
 
     func generate() {
         let panel = NSSavePanel()
@@ -160,7 +234,10 @@ private final class AppModel: ObservableObject {
         panel.allowedContentTypes = [.wav]
         guard panel.runModal() == .OK, let output = panel.url else { return }
         var args = ["--text", text, "--preset", preset, "--output", output.path]
-        if source == .builtIn { args += ["--voice", selectedVoice] }
+        if selectedCatalogID.hasPrefix("nau:") {
+            let voice = String(selectedCatalogID.dropFirst("nau:".count))
+            args += ["--voice", voice]
+        }
         else if let profile = selectedProfile {
             args += ["--reference", audioURL(profile).path]
             if !profile.transcript.isEmpty { args += ["--reference-text", profile.transcript] }
@@ -170,6 +247,11 @@ private final class AppModel: ObservableObject {
             do {
                 let response = try await Task.detached { [args] in try EngineRunner.run(args) }.value
                 lastOutput = response.output.map { URL(fileURLWithPath: $0) } ?? output
+                let voiceName = selectedProfile?.name
+                    ?? String(selectedCatalogID.dropFirst("nau:".count))
+                audioHistory.insert(GeneratedAudio(id: UUID(), filePath: lastOutput!.path,
+                                                    voiceName: voiceName, createdAt: Date(), text: text), at: 0)
+                try? saveHistory()
                 status = "Đã tạo xong bằng \(response.backend?.uppercased() ?? "MLX")."
             } catch { status = error.localizedDescription }
             generating = false
@@ -185,6 +267,15 @@ private final class AppModel: ObservableObject {
     private func saveProfiles() throws {
         let encoder = JSONEncoder(); encoder.outputFormatting = [.prettyPrinted, .sortedKeys]
         try encoder.encode(profiles).write(to: indexURL, options: .atomic)
+    }
+    private func loadHistory() {
+        guard let data = try? Data(contentsOf: historyURL),
+              let saved = try? JSONDecoder().decode([GeneratedAudio].self, from: data) else { return }
+        audioHistory = saved.filter { FileManager.default.fileExists(atPath: $0.filePath) }
+    }
+    private func saveHistory() throws {
+        let encoder = JSONEncoder(); encoder.outputFormatting = [.prettyPrinted, .sortedKeys]
+        try encoder.encode(audioHistory).write(to: historyURL, options: .atomic)
     }
 }
 
@@ -207,12 +298,34 @@ private struct ContentView: View {
 
 private struct HomeView: View {
     @ObservedObject var model: AppModel
+    @State private var section = HomeSection.voices
+    @State private var selectedAudio: GeneratedAudio?
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 22) {
                 Text("Trang chủ").font(.largeTitle.bold())
-                HStack { metric("Giọng có sẵn", model.voices.count); metric("Giọng đã tạo", model.profiles.count) }
-                header("Giọng đã tạo", button: "Quản lý") { model.page = .library }
+                Picker("Nội dung", selection: $section) {
+                    ForEach(HomeSection.allCases) { Text($0.rawValue).tag($0) }
+                }
+                .pickerStyle(.segmented)
+                .frame(maxWidth: 420)
+                if section == .voices {
+                    voiceContent
+                } else {
+                    audioContent
+                }
+            }.padding(28)
+        }
+        .frame(minWidth: 720, minHeight: 580)
+        .sheet(item: $selectedAudio) { item in
+            AudioDetailView(item: item)
+        }
+    }
+
+    @ViewBuilder private var voiceContent: some View {
+        Group {
+                HStack { metric("Giọng có sẵn", model.availableVoiceCount); metric("Giọng tự tạo", model.profiles.filter { ($0.provider ?? "Cục bộ") == "Cục bộ" }.count) }
+                header("Thư viện giọng có sẵn", button: "Quản lý") { model.page = .library }
                 if model.profiles.isEmpty {
                     VStack(spacing: 8) {
                         Image(systemName: "person.wave.2").font(.largeTitle).foregroundStyle(.secondary)
@@ -222,17 +335,46 @@ private struct HomeView: View {
                     .frame(maxWidth: .infinity, minHeight: 150)
                 } else {
                     LazyVGrid(columns: [GridItem(.adaptive(minimum: 180))]) {
-                        ForEach(model.profiles) { profile in
-                            card(profile.name, profile.provider ?? "Giọng đã tạo") { model.use(profile) }
+                        ForEach(model.filteredProfiles) { profile in
+                            card(profile.name, profileSubtitle(profile)) { model.use(profile) }
                         }
                     }
                 }
-                header("Giọng có sẵn", button: model.loadingVoices ? "Đang tải…" : "\(model.voices.count) giọng") {}
+                header("Nau TTS", button: model.loadingVoices ? "Đang tải…" : "\(model.voices.count) giọng") {}
                 LazyVGrid(columns: [GridItem(.adaptive(minimum: 160))]) {
                     ForEach(model.voices, id: \.self) { voice in card(voice, "Nau TTS") { model.use(voice) } }
                 }
-            }.padding(28)
-        }.frame(minWidth: 720, minHeight: 580)
+        }
+    }
+
+    @ViewBuilder private var audioContent: some View {
+        if model.audioHistory.isEmpty {
+            VStack(spacing: 8) {
+                Image(systemName: "waveform").font(.largeTitle).foregroundStyle(.secondary)
+                Text("Chưa có âm thanh").font(.headline)
+                Text("File tạo mới sẽ xuất hiện ở đây.").foregroundStyle(.secondary)
+                Button("Tạo âm thanh") { model.page = .create }
+            }.frame(maxWidth: .infinity, minHeight: 260)
+        } else {
+            Text("Âm thanh đã tạo (\(model.audioHistory.count))").font(.title2.bold())
+            ForEach(model.audioHistory) { item in
+                HStack(spacing: 14) {
+                    Image(systemName: "waveform.circle.fill").font(.title).foregroundStyle(.tint)
+                    VStack(alignment: .leading) {
+                        Text(item.url.lastPathComponent).font(.headline)
+                        Text("\(item.voiceName) · \(item.createdAt.formatted(date: .abbreviated, time: .shortened))")
+                            .font(.caption).foregroundStyle(.secondary)
+                    }
+                    Spacer()
+                    Button("Mở") { NSWorkspace.shared.open(item.url) }
+                    Button("Finder") { NSWorkspace.shared.activateFileViewerSelecting([item.url]) }
+                }
+                .padding(14)
+                .background(.quaternary.opacity(0.25), in: RoundedRectangle(cornerRadius: 12))
+                .contentShape(Rectangle())
+                .onTapGesture { selectedAudio = item }
+            }
+        }
     }
     private func metric(_ title: String, _ count: Int) -> some View {
         VStack(alignment: .leading) { Text("\(count)").font(.title.bold()); Text(title).foregroundStyle(.secondary) }
@@ -249,6 +391,41 @@ private struct HomeView: View {
             }; Spacer() }.padding(13).background(.quaternary.opacity(0.25), in: RoundedRectangle(cornerRadius: 12))
         }.buttonStyle(.plain)
     }
+    private func profileSubtitle(_ profile: VoiceProfile) -> String {
+        [profile.provider, profile.gender, profile.tone].compactMap { $0 }.joined(separator: " · ")
+    }
+}
+
+private struct AudioDetailView: View {
+    let item: GeneratedAudio
+    @Environment(\.dismiss) private var dismiss
+    var body: some View {
+        VStack(alignment: .leading, spacing: 18) {
+            HStack {
+                VStack(alignment: .leading, spacing: 4) {
+                    Text(item.url.lastPathComponent).font(.title2.bold())
+                    Text("\(item.voiceName) · \(item.createdAt.formatted(date: .long, time: .shortened))")
+                        .foregroundStyle(.secondary)
+                }
+                Spacer()
+                Button("Đóng") { dismiss() }
+            }
+            Text("Nội dung đã tạo").font(.headline)
+            ScrollView {
+                Text(item.text?.isEmpty == false ? item.text! : "Không có nội dung được lưu cho file này.")
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .textSelection(.enabled)
+                    .padding(12)
+            }
+            .background(.quaternary.opacity(0.3), in: RoundedRectangle(cornerRadius: 10))
+            HStack {
+                Button("Mở âm thanh") { NSWorkspace.shared.open(item.url) }.buttonStyle(.borderedProminent)
+                Button("Hiện trong Finder") { NSWorkspace.shared.activateFileViewerSelecting([item.url]) }
+            }
+        }
+        .padding(24)
+        .frame(width: 620, height: 430)
+    }
 }
 
 private struct CreateView: View {
@@ -256,17 +433,18 @@ private struct CreateView: View {
     var body: some View {
         ScrollView { VStack(alignment: .leading, spacing: 18) {
             Text("Tạo âm thanh").font(.largeTitle.bold())
-            Picker("Nguồn giọng", selection: $model.source) { ForEach(VoiceSource.allCases) { Text($0.title).tag($0) } }
-                .pickerStyle(.segmented).frame(width: 360)
-            if model.source == .builtIn {
-                Picker("Giọng đọc", selection: $model.selectedVoice) { ForEach(model.voices, id: \.self) { Text($0).tag($0) } }.frame(width: 400)
-            } else if model.profiles.isEmpty {
-                HStack { Text("Chưa có giọng đã tạo."); Button("Thêm giọng") { model.page = .library } }
-            } else {
-                Picker("Giọng đọc", selection: $model.selectedProfileID) {
-                    ForEach(model.profiles) { Text($0.name).tag(Optional($0.id)) }
-                }.frame(width: 400)
-            }
+            VoiceFilters(model: model)
+            Picker("Giọng đọc", selection: $model.selectedCatalogID) {
+                Section("Nau TTS") {
+                    ForEach(model.voices, id: \.self) { Text($0).tag("nau:\($0)") }
+                }
+                Section("Google, ElevenLabs và giọng tự tạo") {
+                    ForEach(model.filteredProfiles) { profile in
+                        Text([profile.name, profile.gender, profile.tone].compactMap { $0 }.joined(separator: " · "))
+                            .tag("profile:\(profile.id)")
+                    }
+                }
+            }.frame(maxWidth: 620)
             Text("Nội dung").font(.headline)
             TextEditor(text: $model.text).frame(minHeight: 230).padding(10)
                 .background(.quaternary.opacity(0.3), in: RoundedRectangle(cornerRadius: 12))
@@ -298,26 +476,86 @@ private struct LibraryView: View {
                         .disabled(name.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty || sourceURL == nil)
                     if let error { Text(error).foregroundStyle(.red) } }
             }.padding(8) }
-            Text("Giọng đã tạo (\(model.profiles.count))").font(.title2.bold())
-            if model.profiles.isEmpty { Text("Chưa có giọng nào trong thư viện.").foregroundStyle(.secondary) }
-            ForEach(model.profiles) { profile in HStack {
-                Image(systemName: "person.crop.circle.fill").font(.title).foregroundStyle(.tint)
-                VStack(alignment: .leading) { Text(profile.name).font(.headline)
-                    Text(profile.provider ?? "Cục bộ").font(.caption).foregroundStyle(.secondary)
-                    Text(profile.transcript.isEmpty ? "Không có transcript" : profile.transcript).font(.caption).foregroundStyle(.secondary).lineLimit(1) }
-                Spacer(); Button("Sử dụng") { model.use(profile) }
-                Button(role: .destructive) { deleting = profile } label: { Image(systemName: "trash") }
-            }.padding(14).background(.quaternary.opacity(0.25), in: RoundedRectangle(cornerRadius: 12)) }
+            Text("Thư viện voice (\(model.availableVoiceCount))").font(.title2.bold())
+            VoiceFilters(model: model)
+            if !model.filteredBuiltInVoices.isEmpty {
+                Text("Nau TTS (\(model.filteredBuiltInVoices.count))").font(.headline)
+                LazyVGrid(columns: [GridItem(.adaptive(minimum: 220), spacing: 12)], spacing: 12) {
+                    ForEach(model.filteredBuiltInVoices, id: \.self) { voice in
+                        voiceCard(title: voice, metadata: "Nau TTS · Chưa phân loại") { model.use(voice) }
+                    }
+                }
+            }
+            if !model.filteredProfiles.isEmpty {
+                Text("Voice local (\(model.filteredProfiles.count))").font(.headline)
+            }
+            LazyVGrid(columns: [GridItem(.adaptive(minimum: 245), spacing: 12)], spacing: 12) {
+                ForEach(model.filteredProfiles) { profile in
+                    VStack(alignment: .leading, spacing: 10) {
+                        HStack {
+                            Image(systemName: "waveform.circle.fill").font(.title).foregroundStyle(.tint)
+                            Text(profile.name).font(.headline).lineLimit(2)
+                            Spacer()
+                        }
+                        Text([profile.provider ?? "Cục bộ", profile.gender ?? "Chưa phân loại", profile.tone ?? "Chưa có tông"]
+                            .joined(separator: " · "))
+                            .font(.caption).foregroundStyle(.secondary).lineLimit(2)
+                        HStack {
+                            Button("Sử dụng") { model.use(profile) }.buttonStyle(.borderedProminent)
+                            Spacer()
+                            Button(role: .destructive) { deleting = profile } label: { Image(systemName: "trash") }
+                        }
+                    }
+                    .padding(14)
+                    .background(.quaternary.opacity(0.25), in: RoundedRectangle(cornerRadius: 12))
+                }
+            }
         }.padding(28) }.frame(minWidth: 720, minHeight: 580)
         .alert("Xóa giọng?", isPresented: Binding(get: { deleting != nil }, set: { if !$0 { deleting = nil } })) {
             Button("Hủy", role: .cancel) { deleting = nil }
             Button("Xóa", role: .destructive) { if let deleting { model.deleteProfile(deleting) }; deleting = nil }
         } message: { Text("File ghi âm và thông tin đã lưu sẽ bị xóa khỏi máy.") }
     }
+    private func voiceCard(title: String, metadata: String, action: @escaping () -> Void) -> some View {
+        VStack(alignment: .leading, spacing: 10) {
+            HStack {
+                Image(systemName: "waveform.circle.fill").font(.title).foregroundStyle(.tint)
+                Text(title).font(.headline).lineLimit(2)
+                Spacer()
+            }
+            Text(metadata).font(.caption).foregroundStyle(.secondary)
+            Button("Sử dụng", action: action).buttonStyle(.borderedProminent)
+        }
+        .padding(14)
+        .background(.quaternary.opacity(0.25), in: RoundedRectangle(cornerRadius: 12))
+    }
     private func choose() { let panel = NSOpenPanel(); panel.allowedContentTypes = [.audio]; panel.allowsMultipleSelection = false
         if panel.runModal() == .OK { sourceURL = panel.url } }
     private func save() { guard let sourceURL else { return }; do { try model.addProfile(name: name, source: sourceURL, transcript: transcript)
         name = ""; transcript = ""; self.sourceURL = nil; error = nil } catch { self.error = error.localizedDescription } }
+}
+
+private struct VoiceFilters: View {
+    @ObservedObject var model: AppModel
+    var body: some View {
+        VStack(alignment: .leading, spacing: 10) {
+            HStack(spacing: 12) {
+                Picker("Giới tính", selection: $model.genderFilter) {
+                    ForEach(VoiceGender.allCases) { Text($0.rawValue).tag($0) }
+                }
+                Picker("Nguồn", selection: $model.providerFilter) {
+                    ForEach(model.providers, id: \.self) { Text($0).tag($0) }
+                }
+                Picker("Tông giọng", selection: $model.toneFilter) {
+                    ForEach(model.tones, id: \.self) { Text($0).tag($0) }
+                }
+            }
+            Picker("Sắp xếp", selection: $model.voiceSort) {
+                ForEach(VoiceSort.allCases) { Text($0.rawValue).tag($0) }
+            }
+            .frame(maxWidth: 280)
+        }
+    }
 }
 
 @main
