@@ -184,7 +184,13 @@ private final class AppModel: ObservableObject {
         !generating && !text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty &&
         (selectedCatalogID.hasPrefix("nau:") || selectedProfile != nil)
     }
-    func audioURL(_ profile: VoiceProfile) -> URL { voiceDirectory.appendingPathComponent(profile.audioFileName) }
+    func audioURL(_ profile: VoiceProfile) -> URL {
+        let local = voiceDirectory.appendingPathComponent(profile.audioFileName)
+        if FileManager.default.fileExists(atPath: local.path) { return local }
+        return Bundle.main.url(forResource: profile.audioFileName,
+                               withExtension: nil,
+                               subdirectory: "DefaultVoices") ?? local
+    }
 
     func loadVoices() {
         guard !loadingVoices, voices.count < 100 else { return }
@@ -254,9 +260,19 @@ private final class AppModel: ObservableObject {
     }
     func reveal() { if let lastOutput { NSWorkspace.shared.activateFileViewerSelecting([lastOutput]) } }
     private func loadProfiles() {
-        guard let data = try? Data(contentsOf: indexURL),
-              let saved = try? JSONDecoder().decode([VoiceProfile].self, from: data) else { return }
-        profiles = saved.filter { FileManager.default.fileExists(atPath: audioURL($0).path) }
+        var combined: [VoiceProfile] = []
+        if let bundledURL = Bundle.main.url(forResource: "voices", withExtension: "json", subdirectory: "DefaultVoices"),
+           let data = try? Data(contentsOf: bundledURL),
+           let bundled = try? JSONDecoder().decode([VoiceProfile].self, from: data) {
+            combined.append(contentsOf: bundled)
+        }
+        if let data = try? Data(contentsOf: indexURL),
+           let saved = try? JSONDecoder().decode([VoiceProfile].self, from: data) {
+            let localIDs = Set(saved.map(\.id))
+            combined.removeAll { localIDs.contains($0.id) }
+            combined.append(contentsOf: saved)
+        }
+        profiles = combined.filter { FileManager.default.fileExists(atPath: audioURL($0).path) }
         selectedProfileID = profiles.first?.id
     }
     private func loadBundledVoices() {

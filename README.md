@@ -10,7 +10,7 @@ engine MLX ngay trên máy Mac. Ứng dụng quản lý Voice mặc định, Voi
 
 ## Tính năng của ứng dụng Mac
 
-- 176 Voice mặc định trong cài đặt hiện tại: 115 voice Nau TTS và 61 voice tham chiếu đã nhập.
+- 176 Voice mặc định được đóng gói: 115 voice Nau TTS và 61 voice tham chiếu Google/ElevenLabs.
 - Lọc voice theo giới tính, nguồn, tông giọng và cách sắp xếp ngay trong màn hình Tạo âm thanh.
 - Thư viện giọng riêng để quản lý Voice mặc định và Voice tự tạo.
 - Lịch sử âm thanh lưu cả file, voice, thời gian và nội dung văn bản đã dùng.

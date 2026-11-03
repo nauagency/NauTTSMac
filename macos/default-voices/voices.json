@@ -1,0 +1,612 @@
+[
+  {
+    "id": "379BC633-8198-428C-9DAE-F1589839ABB1",
+    "name": "Google · vi-VN-Chirp3-HD-Achernar",
+    "audioFileName": "379BC633-8198-428C-9DAE-F1589839ABB1.wav",
+    "transcript": "Xin chào, đây là mẫu giọng tiếng Việt dành cho Nau TTS Mac. Tôi đang đọc một đoạn văn rõ ràng, tự nhiên để bạn có thể sử dụng giọng này khi không có kết nối mạng.",
+    "createdAt": 815367107,
+    "provider": "Google Cloud",
+    "gender": "Nữ",
+    "tone": "Tự nhiên HD"
+  },
+  {
+    "id": "7F52C36B-EFAD-4CAE-B59E-E8E90EFC99C6",
+    "name": "Google · vi-VN-Chirp3-HD-Achird",
+    "audioFileName": "7F52C36B-EFAD-4CAE-B59E-E8E90EFC99C6.wav",
+    "transcript": "Xin chào, đây là mẫu giọng tiếng Việt dành cho Nau TTS Mac. Tôi đang đọc một đoạn văn rõ ràng, tự nhiên để bạn có thể sử dụng giọng này khi không có kết nối mạng.",
+    "createdAt": 815367109,
+    "provider": "Google Cloud",
+    "gender": "Nam",
+    "tone": "Tự nhiên HD"
+  },
+  {
+    "id": "7EA759BD-F704-44B8-B88A-DBA0C34BA74C",
+    "name": "Google · vi-VN-Chirp3-HD-Algenib",
+    "audioFileName": "7EA759BD-F704-44B8-B88A-DBA0C34BA74C.wav",
+    "transcript": "Xin chào, đây là mẫu giọng tiếng Việt dành cho Nau TTS Mac. Tôi đang đọc một đoạn văn rõ ràng, tự nhiên để bạn có thể sử dụng giọng này khi không có kết nối mạng.",
+    "createdAt": 815367111,
+    "provider": "Google Cloud",
+    "gender": "Nam",
+    "tone": "Tự nhiên HD"
+  },
+  {
+    "id": "F8533083-D4E0-4D2E-84BA-F1126B00107B",
+    "name": "Google · vi-VN-Chirp3-HD-Algieba",
+    "audioFileName": "F8533083-D4E0-4D2E-84BA-F1126B00107B.wav",
+    "transcript": "Xin chào, đây là mẫu giọng tiếng Việt dành cho Nau TTS Mac. Tôi đang đọc một đoạn văn rõ ràng, tự nhiên để bạn có thể sử dụng giọng này khi không có kết nối mạng.",
+    "createdAt": 815367113,
+    "provider": "Google Cloud",
+    "gender": "Nam",
+    "tone": "Tự nhiên HD"
+  },
+  {
+    "id": "A033BE5D-8B9C-4590-9169-E4A8C200DC4A",
+    "name": "Google · vi-VN-Chirp3-HD-Alnilam",
+    "audioFileName": "A033BE5D-8B9C-4590-9169-E4A8C200DC4A.wav",
+    "transcript": "Xin chào, đây là mẫu giọng tiếng Việt dành cho Nau TTS Mac. Tôi đang đọc một đoạn văn rõ ràng, tự nhiên để bạn có thể sử dụng giọng này khi không có kết nối mạng.",
+    "createdAt": 815367115,
+    "provider": "Google Cloud",
+    "gender": "Nam",
+    "tone": "Tự nhiên HD"
+  },
+  {
+    "id": "AC2282A8-3C1E-422A-8DFA-CB3820C4EBAD",
+    "name": "Google · vi-VN-Chirp3-HD-Aoede",
+    "audioFileName": "AC2282A8-3C1E-422A-8DFA-CB3820C4EBAD.wav",
+    "transcript": "Xin chào, đây là mẫu giọng tiếng Việt dành cho Nau TTS Mac. Tôi đang đọc một đoạn văn rõ ràng, tự nhiên để bạn có thể sử dụng giọng này khi không có kết nối mạng.",
+    "createdAt": 815367117,
+    "provider": "Google Cloud",
+    "gender": "Nữ",
+    "tone": "Tự nhiên HD"
+  },
+  {
+    "id": "14576B1B-C3E3-45B1-80C3-3157004AD39B",
+    "name": "Google · vi-VN-Chirp3-HD-Autonoe",
+    "audioFileName": "14576B1B-C3E3-45B1-80C3-3157004AD39B.wav",
+    "transcript": "Xin chào, đây là mẫu giọng tiếng Việt dành cho Nau TTS Mac. Tôi đang đọc một đoạn văn rõ ràng, tự nhiên để bạn có thể sử dụng giọng này khi không có kết nối mạng.",
+    "createdAt": 815367119,
+    "provider": "Google Cloud",
+    "gender": "Nữ",
+    "tone": "Tự nhiên HD"
+  },
+  {
+    "id": "E0F8E4F8-B4A8-4533-AE6D-90FDE7A2358D",
+    "name": "Google · vi-VN-Chirp3-HD-Callirrhoe",
+    "audioFileName": "E0F8E4F8-B4A8-4533-AE6D-90FDE7A2358D.wav",
+    "transcript": "Xin chào, đây là mẫu giọng tiếng Việt dành cho Nau TTS Mac. Tôi đang đọc một đoạn văn rõ ràng, tự nhiên để bạn có thể sử dụng giọng này khi không có kết nối mạng.",
+    "createdAt": 815367121,
+    "provider": "Google Cloud",
+    "gender": "Nữ",
+    "tone": "Tự nhiên HD"
+  },
+  {
+    "id": "7668066E-1BBC-4C7A-9105-30BFB905B66A",
+    "name": "Google · vi-VN-Chirp3-HD-Charon",
+    "audioFileName": "7668066E-1BBC-4C7A-9105-30BFB905B66A.wav",
+    "transcript": "Xin chào, đây là mẫu giọng tiếng Việt dành cho Nau TTS Mac. Tôi đang đọc một đoạn văn rõ ràng, tự nhiên để bạn có thể sử dụng giọng này khi không có kết nối mạng.",
+    "createdAt": 815367123,
+    "provider": "Google Cloud",
+    "gender": "Nam",
+    "tone": "Tự nhiên HD"
+  },
+  {
+    "id": "E61D2573-EC2E-4AC3-BD20-6DBA2FD7F13C",
+    "name": "Google · vi-VN-Chirp3-HD-Despina",
+    "audioFileName": "E61D2573-EC2E-4AC3-BD20-6DBA2FD7F13C.wav",
+    "transcript": "Xin chào, đây là mẫu giọng tiếng Việt dành cho Nau TTS Mac. Tôi đang đọc một đoạn văn rõ ràng, tự nhiên để bạn có thể sử dụng giọng này khi không có kết nối mạng.",
+    "createdAt": 815367125,
+    "provider": "Google Cloud",
+    "gender": "Nữ",
+    "tone": "Tự nhiên HD"
+  },
+  {
+    "id": "62FA9BA1-4883-43DE-B5D7-958FC6363F29",
+    "name": "Google · vi-VN-Chirp3-HD-Enceladus",
+    "audioFileName": "62FA9BA1-4883-43DE-B5D7-958FC6363F29.wav",
+    "transcript": "Xin chào, đây là mẫu giọng tiếng Việt dành cho Nau TTS Mac. Tôi đang đọc một đoạn văn rõ ràng, tự nhiên để bạn có thể sử dụng giọng này khi không có kết nối mạng.",
+    "createdAt": 815367127,
+    "provider": "Google Cloud",
+    "gender": "Nam",
+    "tone": "Tự nhiên HD"
+  },
+  {
+    "id": "9EC513EC-EE3F-4775-AF0A-C38AB0E38BE3",
+    "name": "Google · vi-VN-Chirp3-HD-Erinome",
+    "audioFileName": "9EC513EC-EE3F-4775-AF0A-C38AB0E38BE3.wav",
+    "transcript": "Xin chào, đây là mẫu giọng tiếng Việt dành cho Nau TTS Mac. Tôi đang đọc một đoạn văn rõ ràng, tự nhiên để bạn có thể sử dụng giọng này khi không có kết nối mạng.",
+    "createdAt": 815367129,
+    "provider": "Google Cloud",
+    "gender": "Nữ",
+    "tone": "Tự nhiên HD"
+  },
+  {
+    "id": "F5A71FFA-775F-499E-8506-45E5C65E5129",
+    "name": "Google · vi-VN-Chirp3-HD-Fenrir",
+    "audioFileName": "F5A71FFA-775F-499E-8506-45E5C65E5129.wav",
+    "transcript": "Xin chào, đây là mẫu giọng tiếng Việt dành cho Nau TTS Mac. Tôi đang đọc một đoạn văn rõ ràng, tự nhiên để bạn có thể sử dụng giọng này khi không có kết nối mạng.",
+    "createdAt": 815367131,
+    "provider": "Google Cloud",
+    "gender": "Nam",
+    "tone": "Tự nhiên HD"
+  },
+  {
+    "id": "16A0FC18-9537-4D0B-AB4B-39D57434C5D2",
+    "name": "Google · vi-VN-Chirp3-HD-Gacrux",
+    "audioFileName": "16A0FC18-9537-4D0B-AB4B-39D57434C5D2.wav",
+    "transcript": "Xin chào, đây là mẫu giọng tiếng Việt dành cho Nau TTS Mac. Tôi đang đọc một đoạn văn rõ ràng, tự nhiên để bạn có thể sử dụng giọng này khi không có kết nối mạng.",
+    "createdAt": 815367133,
+    "provider": "Google Cloud",
+    "gender": "Nữ",
+    "tone": "Tự nhiên HD"
+  },
+  {
+    "id": "54E0EFDE-4BB4-405A-B8D7-0D35330359B0",
+    "name": "Google · vi-VN-Chirp3-HD-Iapetus",
+    "audioFileName": "54E0EFDE-4BB4-405A-B8D7-0D35330359B0.wav",
+    "transcript": "Xin chào, đây là mẫu giọng tiếng Việt dành cho Nau TTS Mac. Tôi đang đọc một đoạn văn rõ ràng, tự nhiên để bạn có thể sử dụng giọng này khi không có kết nối mạng.",
+    "createdAt": 815367135,
+    "provider": "Google Cloud",
+    "gender": "Nam",
+    "tone": "Tự nhiên HD"
+  },
+  {
+    "id": "41D45BAE-77C1-44E5-96BC-2F9B19B5325C",
+    "name": "Google · vi-VN-Chirp3-HD-Kore",
+    "audioFileName": "41D45BAE-77C1-44E5-96BC-2F9B19B5325C.wav",
+    "transcript": "Xin chào, đây là mẫu giọng tiếng Việt dành cho Nau TTS Mac. Tôi đang đọc một đoạn văn rõ ràng, tự nhiên để bạn có thể sử dụng giọng này khi không có kết nối mạng.",
+    "createdAt": 815367137,
+    "provider": "Google Cloud",
+    "gender": "Nữ",
+    "tone": "Tự nhiên HD"
+  },
+  {
+    "id": "0D279265-98F0-4702-8AE4-67F6C28F0223",
+    "name": "Google · vi-VN-Chirp3-HD-Laomedeia",
+    "audioFileName": "0D279265-98F0-4702-8AE4-67F6C28F0223.wav",
+    "transcript": "Xin chào, đây là mẫu giọng tiếng Việt dành cho Nau TTS Mac. Tôi đang đọc một đoạn văn rõ ràng, tự nhiên để bạn có thể sử dụng giọng này khi không có kết nối mạng.",
+    "createdAt": 815367139,
+    "provider": "Google Cloud",
+    "gender": "Nữ",
+    "tone": "Tự nhiên HD"
+  },
+  {
+    "id": "EFBA321F-A280-49D5-A7C2-95796C61D01F",
+    "name": "Google · vi-VN-Chirp3-HD-Leda",
+    "audioFileName": "EFBA321F-A280-49D5-A7C2-95796C61D01F.wav",
+    "transcript": "Xin chào, đây là mẫu giọng tiếng Việt dành cho Nau TTS Mac. Tôi đang đọc một đoạn văn rõ ràng, tự nhiên để bạn có thể sử dụng giọng này khi không có kết nối mạng.",
+    "createdAt": 815367141,
+    "provider": "Google Cloud",
+    "gender": "Nữ",
+    "tone": "Tự nhiên HD"
+  },
+  {
+    "id": "69A7D217-123A-474C-B721-AEDED2BE6855",
+    "name": "Google · vi-VN-Chirp3-HD-Orus",
+    "audioFileName": "69A7D217-123A-474C-B721-AEDED2BE6855.wav",
+    "transcript": "Xin chào, đây là mẫu giọng tiếng Việt dành cho Nau TTS Mac. Tôi đang đọc một đoạn văn rõ ràng, tự nhiên để bạn có thể sử dụng giọng này khi không có kết nối mạng.",
+    "createdAt": 815367143,
+    "provider": "Google Cloud",
+    "gender": "Nam",
+    "tone": "Tự nhiên HD"
+  },
+  {
+    "id": "0D403195-C7C4-492E-A157-7A4F346BC440",
+    "name": "Google · vi-VN-Chirp3-HD-Puck",
+    "audioFileName": "0D403195-C7C4-492E-A157-7A4F346BC440.wav",
+    "transcript": "Xin chào, đây là mẫu giọng tiếng Việt dành cho Nau TTS Mac. Tôi đang đọc một đoạn văn rõ ràng, tự nhiên để bạn có thể sử dụng giọng này khi không có kết nối mạng.",
+    "createdAt": 815367144,
+    "provider": "Google Cloud",
+    "gender": "Nam",
+    "tone": "Tự nhiên HD"
+  },
+  {
+    "id": "9419DE54-51A7-4EAC-B167-A4DB11607AF4",
+    "name": "Google · vi-VN-Chirp3-HD-Pulcherrima",
+    "audioFileName": "9419DE54-51A7-4EAC-B167-A4DB11607AF4.wav",
+    "transcript": "Xin chào, đây là mẫu giọng tiếng Việt dành cho Nau TTS Mac. Tôi đang đọc một đoạn văn rõ ràng, tự nhiên để bạn có thể sử dụng giọng này khi không có kết nối mạng.",
+    "createdAt": 815367146,
+    "provider": "Google Cloud",
+    "gender": "Nữ",
+    "tone": "Tự nhiên HD"
+  },
+  {
+    "id": "FD670AF1-4990-4956-A11F-D41A164D83D5",
+    "name": "Google · vi-VN-Chirp3-HD-Rasalgethi",
+    "audioFileName": "FD670AF1-4990-4956-A11F-D41A164D83D5.wav",
+    "transcript": "Xin chào, đây là mẫu giọng tiếng Việt dành cho Nau TTS Mac. Tôi đang đọc một đoạn văn rõ ràng, tự nhiên để bạn có thể sử dụng giọng này khi không có kết nối mạng.",
+    "createdAt": 815367148,
+    "provider": "Google Cloud",
+    "gender": "Nam",
+    "tone": "Tự nhiên HD"
+  },
+  {
+    "id": "2D8EF099-B0A4-4AC8-9761-1887A11E09AE",
+    "name": "Google · vi-VN-Chirp3-HD-Sadachbia",
+    "audioFileName": "2D8EF099-B0A4-4AC8-9761-1887A11E09AE.wav",
+    "transcript": "Xin chào, đây là mẫu giọng tiếng Việt dành cho Nau TTS Mac. Tôi đang đọc một đoạn văn rõ ràng, tự nhiên để bạn có thể sử dụng giọng này khi không có kết nối mạng.",
+    "createdAt": 815367150,
+    "provider": "Google Cloud",
+    "gender": "Nam",
+    "tone": "Tự nhiên HD"
+  },
+  {
+    "id": "17CD580F-1474-4AB7-9CF2-0F727ED23C03",
+    "name": "Google · vi-VN-Chirp3-HD-Sadaltager",
+    "audioFileName": "17CD580F-1474-4AB7-9CF2-0F727ED23C03.wav",
+    "transcript": "Xin chào, đây là mẫu giọng tiếng Việt dành cho Nau TTS Mac. Tôi đang đọc một đoạn văn rõ ràng, tự nhiên để bạn có thể sử dụng giọng này khi không có kết nối mạng.",
+    "createdAt": 815367152,
+    "provider": "Google Cloud",
+    "gender": "Nam",
+    "tone": "Tự nhiên HD"
+  },
+  {
+    "id": "CAA03FB9-A7DF-4F94-AA97-ACF2E69FFB54",
+    "name": "Google · vi-VN-Chirp3-HD-Schedar",
+    "audioFileName": "CAA03FB9-A7DF-4F94-AA97-ACF2E69FFB54.wav",
+    "transcript": "Xin chào, đây là mẫu giọng tiếng Việt dành cho Nau TTS Mac. Tôi đang đọc một đoạn văn rõ ràng, tự nhiên để bạn có thể sử dụng giọng này khi không có kết nối mạng.",
+    "createdAt": 815367154,
+    "provider": "Google Cloud",
+    "gender": "Nam",
+    "tone": "Tự nhiên HD"
+  },
+  {
+    "id": "91B4BFD6-8F73-47AB-BD61-977BC92AB0E1",
+    "name": "Google · vi-VN-Chirp3-HD-Sulafat",
+    "audioFileName": "91B4BFD6-8F73-47AB-BD61-977BC92AB0E1.wav",
+    "transcript": "Xin chào, đây là mẫu giọng tiếng Việt dành cho Nau TTS Mac. Tôi đang đọc một đoạn văn rõ ràng, tự nhiên để bạn có thể sử dụng giọng này khi không có kết nối mạng.",
+    "createdAt": 815367156,
+    "provider": "Google Cloud",
+    "gender": "Nữ",
+    "tone": "Tự nhiên HD"
+  },
+  {
+    "id": "46F21A50-CD77-4C52-9913-968E43C25CDF",
+    "name": "Google · vi-VN-Chirp3-HD-Umbriel",
+    "audioFileName": "46F21A50-CD77-4C52-9913-968E43C25CDF.wav",
+    "transcript": "Xin chào, đây là mẫu giọng tiếng Việt dành cho Nau TTS Mac. Tôi đang đọc một đoạn văn rõ ràng, tự nhiên để bạn có thể sử dụng giọng này khi không có kết nối mạng.",
+    "createdAt": 815367159,
+    "provider": "Google Cloud",
+    "gender": "Nam",
+    "tone": "Tự nhiên HD"
+  },
+  {
+    "id": "759C60FC-16CF-4616-9774-65B18A5192EB",
+    "name": "Google · vi-VN-Chirp3-HD-Vindemiatrix",
+    "audioFileName": "759C60FC-16CF-4616-9774-65B18A5192EB.wav",
+    "transcript": "Xin chào, đây là mẫu giọng tiếng Việt dành cho Nau TTS Mac. Tôi đang đọc một đoạn văn rõ ràng, tự nhiên để bạn có thể sử dụng giọng này khi không có kết nối mạng.",
+    "createdAt": 815367160,
+    "provider": "Google Cloud",
+    "gender": "Nữ",
+    "tone": "Tự nhiên HD"
+  },
+  {
+    "id": "17638519-82D2-4FBE-8A13-0EE7BB3190F6",
+    "name": "Google · vi-VN-Chirp3-HD-Zephyr",
+    "audioFileName": "17638519-82D2-4FBE-8A13-0EE7BB3190F6.wav",
+    "transcript": "Xin chào, đây là mẫu giọng tiếng Việt dành cho Nau TTS Mac. Tôi đang đọc một đoạn văn rõ ràng, tự nhiên để bạn có thể sử dụng giọng này khi không có kết nối mạng.",
+    "createdAt": 815367163,
+    "provider": "Google Cloud",
+    "gender": "Nữ",
+    "tone": "Tự nhiên HD"
+  },
+  {
+    "id": "64DCF60F-42DA-4052-ADF6-D8415D8A1A9E",
+    "name": "Google · vi-VN-Chirp3-HD-Zubenelgenubi",
+    "audioFileName": "64DCF60F-42DA-4052-ADF6-D8415D8A1A9E.wav",
+    "transcript": "Xin chào, đây là mẫu giọng tiếng Việt dành cho Nau TTS Mac. Tôi đang đọc một đoạn văn rõ ràng, tự nhiên để bạn có thể sử dụng giọng này khi không có kết nối mạng.",
+    "createdAt": 815367164,
+    "provider": "Google Cloud",
+    "gender": "Nam",
+    "tone": "Tự nhiên HD"
+  },
+  {
+    "id": "C4F5C582-A6B5-4483-8C21-4B2408B929BA",
+    "name": "Google · vi-VN-Neural2-A",
+    "audioFileName": "C4F5C582-A6B5-4483-8C21-4B2408B929BA.wav",
+    "transcript": "Xin chào, đây là mẫu giọng tiếng Việt dành cho Nau TTS Mac. Tôi đang đọc một đoạn văn rõ ràng, tự nhiên để bạn có thể sử dụng giọng này khi không có kết nối mạng.",
+    "createdAt": 815367165,
+    "provider": "Google Cloud",
+    "gender": "Nữ",
+    "tone": "Mượt mà"
+  },
+  {
+    "id": "4F08560C-C990-454C-BF3F-EDCEBFC53B54",
+    "name": "Google · vi-VN-Neural2-D",
+    "audioFileName": "4F08560C-C990-454C-BF3F-EDCEBFC53B54.wav",
+    "transcript": "Xin chào, đây là mẫu giọng tiếng Việt dành cho Nau TTS Mac. Tôi đang đọc một đoạn văn rõ ràng, tự nhiên để bạn có thể sử dụng giọng này khi không có kết nối mạng.",
+    "createdAt": 815367166,
+    "provider": "Google Cloud",
+    "gender": "Nam",
+    "tone": "Mượt mà"
+  },
+  {
+    "id": "25ACB84E-01A4-4B4A-B1A1-47B6C49AFBBB",
+    "name": "Google · vi-VN-Standard-A",
+    "audioFileName": "25ACB84E-01A4-4B4A-B1A1-47B6C49AFBBB.wav",
+    "transcript": "Xin chào, đây là mẫu giọng tiếng Việt dành cho Nau TTS Mac. Tôi đang đọc một đoạn văn rõ ràng, tự nhiên để bạn có thể sử dụng giọng này khi không có kết nối mạng.",
+    "createdAt": 815367167,
+    "provider": "Google Cloud",
+    "gender": "Nữ",
+    "tone": "Tiêu chuẩn"
+  },
+  {
+    "id": "52DD4B3D-FAEE-4CD5-8B88-D99F35252DE1",
+    "name": "Google · vi-VN-Standard-B",
+    "audioFileName": "52DD4B3D-FAEE-4CD5-8B88-D99F35252DE1.wav",
+    "transcript": "Xin chào, đây là mẫu giọng tiếng Việt dành cho Nau TTS Mac. Tôi đang đọc một đoạn văn rõ ràng, tự nhiên để bạn có thể sử dụng giọng này khi không có kết nối mạng.",
+    "createdAt": 815367168,
+    "provider": "Google Cloud",
+    "gender": "Nam",
+    "tone": "Tiêu chuẩn"
+  },
+  {
+    "id": "95EBF44A-E317-46BD-AC56-BA05178E21FF",
+    "name": "Google · vi-VN-Standard-C",
+    "audioFileName": "95EBF44A-E317-46BD-AC56-BA05178E21FF.wav",
+    "transcript": "Xin chào, đây là mẫu giọng tiếng Việt dành cho Nau TTS Mac. Tôi đang đọc một đoạn văn rõ ràng, tự nhiên để bạn có thể sử dụng giọng này khi không có kết nối mạng.",
+    "createdAt": 815367169,
+    "provider": "Google Cloud",
+    "gender": "Nữ",
+    "tone": "Tiêu chuẩn"
+  },
+  {
+    "id": "0AE53B66-26DD-4CCB-B85D-7829D8E5F331",
+    "name": "Google · vi-VN-Standard-D",
+    "audioFileName": "0AE53B66-26DD-4CCB-B85D-7829D8E5F331.wav",
+    "transcript": "Xin chào, đây là mẫu giọng tiếng Việt dành cho Nau TTS Mac. Tôi đang đọc một đoạn văn rõ ràng, tự nhiên để bạn có thể sử dụng giọng này khi không có kết nối mạng.",
+    "createdAt": 815367170,
+    "provider": "Google Cloud",
+    "gender": "Nam",
+    "tone": "Tiêu chuẩn"
+  },
+  {
+    "id": "045297CD-D459-4348-BF9B-AD9985DBB2F0",
+    "name": "Google · vi-VN-Wavenet-A",
+    "audioFileName": "045297CD-D459-4348-BF9B-AD9985DBB2F0.wav",
+    "transcript": "Xin chào, đây là mẫu giọng tiếng Việt dành cho Nau TTS Mac. Tôi đang đọc một đoạn văn rõ ràng, tự nhiên để bạn có thể sử dụng giọng này khi không có kết nối mạng.",
+    "createdAt": 815367171,
+    "provider": "Google Cloud",
+    "gender": "Nữ",
+    "tone": "Truyền cảm"
+  },
+  {
+    "id": "80258DE2-7473-4C81-98AE-C713B15192A5",
+    "name": "Google · vi-VN-Wavenet-B",
+    "audioFileName": "80258DE2-7473-4C81-98AE-C713B15192A5.wav",
+    "transcript": "Xin chào, đây là mẫu giọng tiếng Việt dành cho Nau TTS Mac. Tôi đang đọc một đoạn văn rõ ràng, tự nhiên để bạn có thể sử dụng giọng này khi không có kết nối mạng.",
+    "createdAt": 815367172,
+    "provider": "Google Cloud",
+    "gender": "Nam",
+    "tone": "Truyền cảm"
+  },
+  {
+    "id": "1ABA7C77-58D1-4701-8FA6-5046775F7372",
+    "name": "Google · vi-VN-Wavenet-C",
+    "audioFileName": "1ABA7C77-58D1-4701-8FA6-5046775F7372.wav",
+    "transcript": "Xin chào, đây là mẫu giọng tiếng Việt dành cho Nau TTS Mac. Tôi đang đọc một đoạn văn rõ ràng, tự nhiên để bạn có thể sử dụng giọng này khi không có kết nối mạng.",
+    "createdAt": 815367173,
+    "provider": "Google Cloud",
+    "gender": "Nữ",
+    "tone": "Truyền cảm"
+  },
+  {
+    "id": "1FC81BD3-FAC6-42B6-9689-C813B7F5FD37",
+    "name": "Google · vi-VN-Wavenet-D",
+    "audioFileName": "1FC81BD3-FAC6-42B6-9689-C813B7F5FD37.wav",
+    "transcript": "Xin chào, đây là mẫu giọng tiếng Việt dành cho Nau TTS Mac. Tôi đang đọc một đoạn văn rõ ràng, tự nhiên để bạn có thể sử dụng giọng này khi không có kết nối mạng.",
+    "createdAt": 815367175,
+    "provider": "Google Cloud",
+    "gender": "Nam",
+    "tone": "Truyền cảm"
+  },
+  {
+    "id": "3A91B1A0-1E56-4254-A3FE-307D05A506D0",
+    "name": "ElevenLabs · Bella - Professional, Bright, Warm",
+    "audioFileName": "3A91B1A0-1E56-4254-A3FE-307D05A506D0.mp3",
+    "transcript": "Xin chào, đây là mẫu giọng tiếng Việt dành cho Nau TTS Mac. Tôi đang đọc một đoạn văn rõ ràng, tự nhiên để bạn có thể sử dụng giọng này khi không có kết nối mạng.",
+    "createdAt": 815367595,
+    "provider": "ElevenLabs",
+    "gender": "Nữ",
+    "tone": "Ấm áp"
+  },
+  {
+    "id": "063E92A4-B7A5-45B9-AB6A-A99C22A428A8",
+    "name": "ElevenLabs · Roger - Laid-Back, Casual, Resonant",
+    "audioFileName": "063E92A4-B7A5-45B9-AB6A-A99C22A428A8.mp3",
+    "transcript": "Xin chào, đây là mẫu giọng tiếng Việt dành cho Nau TTS Mac. Tôi đang đọc một đoạn văn rõ ràng, tự nhiên để bạn có thể sử dụng giọng này khi không có kết nối mạng.",
+    "createdAt": 815367596,
+    "provider": "ElevenLabs",
+    "gender": "Nam",
+    "tone": "Tự nhiên"
+  },
+  {
+    "id": "6591E078-1CE2-4900-ACDB-A70BCE124A69",
+    "name": "ElevenLabs · Sarah - Mature, Reassuring, Confident",
+    "audioFileName": "6591E078-1CE2-4900-ACDB-A70BCE124A69.mp3",
+    "transcript": "Xin chào, đây là mẫu giọng tiếng Việt dành cho Nau TTS Mac. Tôi đang đọc một đoạn văn rõ ràng, tự nhiên để bạn có thể sử dụng giọng này khi không có kết nối mạng.",
+    "createdAt": 815367597,
+    "provider": "ElevenLabs",
+    "gender": "Nữ",
+    "tone": "Ấm áp"
+  },
+  {
+    "id": "FD324616-F5EA-4921-BB66-CEF59C828F01",
+    "name": "ElevenLabs · Laura - Enthusiast, Quirky Attitude",
+    "audioFileName": "FD324616-F5EA-4921-BB66-CEF59C828F01.mp3",
+    "transcript": "Xin chào, đây là mẫu giọng tiếng Việt dành cho Nau TTS Mac. Tôi đang đọc một đoạn văn rõ ràng, tự nhiên để bạn có thể sử dụng giọng này khi không có kết nối mạng.",
+    "createdAt": 815367598,
+    "provider": "ElevenLabs",
+    "gender": "Nữ",
+    "tone": "Năng động"
+  },
+  {
+    "id": "B01F33C9-22DD-4919-A97F-7597BAB2C02A",
+    "name": "ElevenLabs · Charlie - Deep, Confident, Energetic",
+    "audioFileName": "B01F33C9-22DD-4919-A97F-7597BAB2C02A.mp3",
+    "transcript": "Xin chào, đây là mẫu giọng tiếng Việt dành cho Nau TTS Mac. Tôi đang đọc một đoạn văn rõ ràng, tự nhiên để bạn có thể sử dụng giọng này khi không có kết nối mạng.",
+    "createdAt": 815367599,
+    "provider": "ElevenLabs",
+    "gender": "Nam",
+    "tone": "Năng động"
+  },
+  {
+    "id": "EF152DF0-DF8C-4C49-94F3-1A3EDBF288F9",
+    "name": "ElevenLabs · George - Warm, Captivating Storyteller",
+    "audioFileName": "EF152DF0-DF8C-4C49-94F3-1A3EDBF288F9.mp3",
+    "transcript": "Xin chào, đây là mẫu giọng tiếng Việt dành cho Nau TTS Mac. Tôi đang đọc một đoạn văn rõ ràng, tự nhiên để bạn có thể sử dụng giọng này khi không có kết nối mạng.",
+    "createdAt": 815367600,
+    "provider": "ElevenLabs",
+    "gender": "Nam",
+    "tone": "Ấm áp"
+  },
+  {
+    "id": "B7393D37-E7CF-4FB3-8983-DB2BDCBC0A2D",
+    "name": "ElevenLabs · Callum - Husky Trickster",
+    "audioFileName": "B7393D37-E7CF-4FB3-8983-DB2BDCBC0A2D.mp3",
+    "transcript": "Xin chào, đây là mẫu giọng tiếng Việt dành cho Nau TTS Mac. Tôi đang đọc một đoạn văn rõ ràng, tự nhiên để bạn có thể sử dụng giọng này khi không có kết nối mạng.",
+    "createdAt": 815367602,
+    "provider": "ElevenLabs",
+    "gender": "Nam",
+    "tone": "Tự nhiên"
+  },
+  {
+    "id": "5431AA13-B514-4978-9A0E-0F8D9ED5634A",
+    "name": "ElevenLabs · River - Relaxed, Neutral, Informative",
+    "audioFileName": "5431AA13-B514-4978-9A0E-0F8D9ED5634A.mp3",
+    "transcript": "Xin chào, đây là mẫu giọng tiếng Việt dành cho Nau TTS Mac. Tôi đang đọc một đoạn văn rõ ràng, tự nhiên để bạn có thể sử dụng giọng này khi không có kết nối mạng.",
+    "createdAt": 815367603,
+    "provider": "ElevenLabs",
+    "gender": "Trung tính",
+    "tone": "Chuyên nghiệp"
+  },
+  {
+    "id": "4904C0AF-61C4-4F31-9067-A870325BB3BC",
+    "name": "ElevenLabs · Harry - Fierce Warrior",
+    "audioFileName": "4904C0AF-61C4-4F31-9067-A870325BB3BC.mp3",
+    "transcript": "Xin chào, đây là mẫu giọng tiếng Việt dành cho Nau TTS Mac. Tôi đang đọc một đoạn văn rõ ràng, tự nhiên để bạn có thể sử dụng giọng này khi không có kết nối mạng.",
+    "createdAt": 815367604,
+    "provider": "ElevenLabs",
+    "gender": "Nam",
+    "tone": "Trầm mạnh"
+  },
+  {
+    "id": "953BA8F0-4761-4E15-BFC6-57196D20D64C",
+    "name": "ElevenLabs · Liam - Energetic, Social Media Creator",
+    "audioFileName": "953BA8F0-4761-4E15-BFC6-57196D20D64C.mp3",
+    "transcript": "Xin chào, đây là mẫu giọng tiếng Việt dành cho Nau TTS Mac. Tôi đang đọc một đoạn văn rõ ràng, tự nhiên để bạn có thể sử dụng giọng này khi không có kết nối mạng.",
+    "createdAt": 815367605,
+    "provider": "ElevenLabs",
+    "gender": "Nam",
+    "tone": "Năng động"
+  },
+  {
+    "id": "5914B24A-55D6-4ED9-9A1C-F2F9E430A8BB",
+    "name": "ElevenLabs · Alice - Clear, Engaging Educator",
+    "audioFileName": "5914B24A-55D6-4ED9-9A1C-F2F9E430A8BB.mp3",
+    "transcript": "Xin chào, đây là mẫu giọng tiếng Việt dành cho Nau TTS Mac. Tôi đang đọc một đoạn văn rõ ràng, tự nhiên để bạn có thể sử dụng giọng này khi không có kết nối mạng.",
+    "createdAt": 815367606,
+    "provider": "ElevenLabs",
+    "gender": "Nữ",
+    "tone": "Chuyên nghiệp"
+  },
+  {
+    "id": "F18A7521-38C2-478E-B504-A1339E898E88",
+    "name": "ElevenLabs · Matilda - Knowledgable, Professional",
+    "audioFileName": "F18A7521-38C2-478E-B504-A1339E898E88.mp3",
+    "transcript": "Xin chào, đây là mẫu giọng tiếng Việt dành cho Nau TTS Mac. Tôi đang đọc một đoạn văn rõ ràng, tự nhiên để bạn có thể sử dụng giọng này khi không có kết nối mạng.",
+    "createdAt": 815367608,
+    "provider": "ElevenLabs",
+    "gender": "Nữ",
+    "tone": "Chuyên nghiệp"
+  },
+  {
+    "id": "EB943358-F1EF-4FC2-A2DD-1CBA7F3132B1",
+    "name": "ElevenLabs · Will - Relaxed Optimist",
+    "audioFileName": "EB943358-F1EF-4FC2-A2DD-1CBA7F3132B1.mp3",
+    "transcript": "Xin chào, đây là mẫu giọng tiếng Việt dành cho Nau TTS Mac. Tôi đang đọc một đoạn văn rõ ràng, tự nhiên để bạn có thể sử dụng giọng này khi không có kết nối mạng.",
+    "createdAt": 815367609,
+    "provider": "ElevenLabs",
+    "gender": "Nam",
+    "tone": "Tự nhiên"
+  },
+  {
+    "id": "0F329080-2837-42CD-8BBC-45C8C5036898",
+    "name": "ElevenLabs · Jessica - Playful, Bright, Warm",
+    "audioFileName": "0F329080-2837-42CD-8BBC-45C8C5036898.mp3",
+    "transcript": "Xin chào, đây là mẫu giọng tiếng Việt dành cho Nau TTS Mac. Tôi đang đọc một đoạn văn rõ ràng, tự nhiên để bạn có thể sử dụng giọng này khi không có kết nối mạng.",
+    "createdAt": 815367610,
+    "provider": "ElevenLabs",
+    "gender": "Nữ",
+    "tone": "Ấm áp"
+  },
+  {
+    "id": "C2C4D93E-50EF-436B-88F7-56A3C3A5E0AC",
+    "name": "ElevenLabs · Eric - Smooth, Trustworthy",
+    "audioFileName": "C2C4D93E-50EF-436B-88F7-56A3C3A5E0AC.mp3",
+    "transcript": "Xin chào, đây là mẫu giọng tiếng Việt dành cho Nau TTS Mac. Tôi đang đọc một đoạn văn rõ ràng, tự nhiên để bạn có thể sử dụng giọng này khi không có kết nối mạng.",
+    "createdAt": 815367612,
+    "provider": "ElevenLabs",
+    "gender": "Nam",
+    "tone": "Tự nhiên"
+  },
+  {
+    "id": "92A2767A-C73A-4928-ACCE-7F578B27971D",
+    "name": "ElevenLabs · Chris - Charming, Down-to-Earth",
+    "audioFileName": "92A2767A-C73A-4928-ACCE-7F578B27971D.mp3",
+    "transcript": "Xin chào, đây là mẫu giọng tiếng Việt dành cho Nau TTS Mac. Tôi đang đọc một đoạn văn rõ ràng, tự nhiên để bạn có thể sử dụng giọng này khi không có kết nối mạng.",
+    "createdAt": 815367613,
+    "provider": "ElevenLabs",
+    "gender": "Nam",
+    "tone": "Tự nhiên"
+  },
+  {
+    "id": "32B57F41-C46D-4A02-9015-16CEB6697B01",
+    "name": "ElevenLabs · Brian - Deep, Resonant and Comforting",
+    "audioFileName": "32B57F41-C46D-4A02-9015-16CEB6697B01.mp3",
+    "transcript": "Xin chào, đây là mẫu giọng tiếng Việt dành cho Nau TTS Mac. Tôi đang đọc một đoạn văn rõ ràng, tự nhiên để bạn có thể sử dụng giọng này khi không có kết nối mạng.",
+    "createdAt": 815367614,
+    "provider": "ElevenLabs",
+    "gender": "Nam",
+    "tone": "Ấm áp"
+  },
+  {
+    "id": "AE0FA953-751B-455D-AC00-48BFDCA53A39",
+    "name": "ElevenLabs · Daniel - Steady Broadcaster",
+    "audioFileName": "AE0FA953-751B-455D-AC00-48BFDCA53A39.mp3",
+    "transcript": "Xin chào, đây là mẫu giọng tiếng Việt dành cho Nau TTS Mac. Tôi đang đọc một đoạn văn rõ ràng, tự nhiên để bạn có thể sử dụng giọng này khi không có kết nối mạng.",
+    "createdAt": 815367615,
+    "provider": "ElevenLabs",
+    "gender": "Nam",
+    "tone": "Chuyên nghiệp"
+  },
+  {
+    "id": "BB68F9CF-DF44-48FA-A018-8918EFA5A6A0",
+    "name": "ElevenLabs · Lily - Velvety Actress",
+    "audioFileName": "BB68F9CF-DF44-48FA-A018-8918EFA5A6A0.mp3",
+    "transcript": "Xin chào, đây là mẫu giọng tiếng Việt dành cho Nau TTS Mac. Tôi đang đọc một đoạn văn rõ ràng, tự nhiên để bạn có thể sử dụng giọng này khi không có kết nối mạng.",
+    "createdAt": 815367616,
+    "provider": "ElevenLabs",
+    "gender": "Nữ",
+    "tone": "Kể chuyện"
+  },
+  {
+    "id": "D8103ACD-7B60-44BD-8531-5DF93598FC39",
+    "name": "ElevenLabs · Adam - Dominant, Firm",
+    "audioFileName": "D8103ACD-7B60-44BD-8531-5DF93598FC39.mp3",
+    "transcript": "Xin chào, đây là mẫu giọng tiếng Việt dành cho Nau TTS Mac. Tôi đang đọc một đoạn văn rõ ràng, tự nhiên để bạn có thể sử dụng giọng này khi không có kết nối mạng.",
+    "createdAt": 815367617,
+    "provider": "ElevenLabs",
+    "gender": "Nam",
+    "tone": "Trầm mạnh"
+  },
+  {
+    "id": "678AE516-752C-402D-9109-54D1EF604E06",
+    "name": "ElevenLabs · Bill - Wise, Mature, Balanced",
+    "audioFileName": "678AE516-752C-402D-9109-54D1EF604E06.mp3",
+    "transcript": "Xin chào, đây là mẫu giọng tiếng Việt dành cho Nau TTS Mac. Tôi đang đọc một đoạn văn rõ ràng, tự nhiên để bạn có thể sử dụng giọng này khi không có kết nối mạng.",
+    "createdAt": 815367619,
+    "provider": "ElevenLabs",
+    "gender": "Nam",
+    "tone": "Tự nhiên"
+  }
+]
