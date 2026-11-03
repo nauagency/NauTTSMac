@@ -29,6 +29,7 @@ Temporary Items
 .venv*
 
 *.wav
+!macos/default-voices/Voices/*.wav
 .build/
 
 # Byte-compiled / optimized / DLL files
