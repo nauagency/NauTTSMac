@@ -12,6 +12,7 @@ from pathlib import Path
 def parser() -> argparse.ArgumentParser:
     result = argparse.ArgumentParser(description="Generate speech for Nau TTS Mac")
     result.add_argument("--check", action="store_true", help="validate the local MLX install")
+    result.add_argument("--list-voices", action="store_true", help="list built-in voices")
     result.add_argument("--text")
     result.add_argument("--voice", default="Bruno")
     result.add_argument("--reference", type=Path)
@@ -34,6 +35,11 @@ def main() -> int:
 
         if args.check:
             emit({"ok": True, "device": str(mx.default_device()), "backend": "mlx"})
+            return 0
+
+        if args.list_voices:
+            model = NauTTS("KittenML/kitten-tts-2", backend="mlx")
+            emit({"ok": True, "voices": sorted(model.available_voices)})
             return 0
 
         if not args.text or not args.text.strip():

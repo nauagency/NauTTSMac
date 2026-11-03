@@ -249,9 +249,12 @@ Enter text, choose a built-in voice and save the generated WAV file. The app pas
 directly to `macos/engine.py` without invoking a shell. Model files are downloaded on first use
 and remain outside the Git repository.
 
-To clone a voice, switch to **Clone voice**, choose a clean 5–30 second recording containing one
-speaker, and optionally enter the recording's transcript. The reference recording is read locally
-for that generation and is not committed to the repository.
+The app has three sections: **Home** lists all built-in and saved voices, **Create audio** generates
+WAV files with the selected voice, and **Voice library** adds or removes cloned voices. To create a
+voice, give it a name, choose a clean 5–30 second recording containing one speaker, and optionally
+enter the recording's transcript. Saved voice profiles and their copied reference recordings live
+under the user's Application Support directory and persist across app launches; they are never
+committed to the repository.
 
 To build a normal `.app` bundle with an application icon and install it for the current user:
 
