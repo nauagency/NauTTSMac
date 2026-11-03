@@ -16,6 +16,7 @@ private struct VoiceProfile: Codable, Identifiable, Hashable, Sendable {
     let audioFileName: String
     var transcript: String
     let createdAt: Date
+    var provider: String?
 }
 
 private enum AppPage: String, CaseIterable, Identifiable {
@@ -137,7 +138,7 @@ private final class AppModel: ObservableObject {
         try FileManager.default.copyItem(at: source, to: destination)
         profiles.insert(VoiceProfile(id: id, name: name, audioFileName: fileName,
                                      transcript: transcript.trimmingCharacters(in: .whitespacesAndNewlines),
-                                     createdAt: Date()), at: 0)
+                                     createdAt: Date(), provider: "Cục bộ"), at: 0)
         try saveProfiles()
         selectedProfileID = id
         self.source = .created
@@ -222,7 +223,7 @@ private struct HomeView: View {
                 } else {
                     LazyVGrid(columns: [GridItem(.adaptive(minimum: 180))]) {
                         ForEach(model.profiles) { profile in
-                            card(profile.name, "Giọng đã tạo") { model.use(profile) }
+                            card(profile.name, profile.provider ?? "Giọng đã tạo") { model.use(profile) }
                         }
                     }
                 }
@@ -302,6 +303,7 @@ private struct LibraryView: View {
             ForEach(model.profiles) { profile in HStack {
                 Image(systemName: "person.crop.circle.fill").font(.title).foregroundStyle(.tint)
                 VStack(alignment: .leading) { Text(profile.name).font(.headline)
+                    Text(profile.provider ?? "Cục bộ").font(.caption).foregroundStyle(.secondary)
                     Text(profile.transcript.isEmpty ? "Không có transcript" : profile.transcript).font(.caption).foregroundStyle(.secondary).lineLimit(1) }
                 Spacer(); Button("Sử dụng") { model.use(profile) }
                 Button(role: .destructive) { deleting = profile } label: { Image(systemName: "trash") }
