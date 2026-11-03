@@ -34,7 +34,12 @@ private enum EngineError: LocalizedError {
 
 private enum EngineRunner {
     static func projectRoot() -> URL {
-        URL(fileURLWithPath: FileManager.default.currentDirectoryPath, isDirectory: true)
+        if let configured = Bundle.main.object(forInfoDictionaryKey: "KittenTTSProjectRoot") as? String,
+           configured != "__PROJECT_ROOT__",
+           FileManager.default.fileExists(atPath: configured) {
+            return URL(fileURLWithPath: configured, isDirectory: true)
+        }
+        return URL(fileURLWithPath: FileManager.default.currentDirectoryPath, isDirectory: true)
     }
 
     static func generate(_ request: GenerationRequest) throws -> EngineResponse {

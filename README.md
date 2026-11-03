@@ -249,6 +249,13 @@ Enter text, choose a built-in voice and save the generated WAV file. The app pas
 directly to `macos/engine.py` without invoking a shell. Model files are downloaded by the existing
 KittenTTS/Hugging Face code on first use and remain outside the Git repository.
 
+To build a normal `.app` bundle with an application icon and install it for the current user:
+
+```bash
+./macos/build-app.sh --install
+open "$HOME/Applications/KittenTTS Mac.app"
+```
+
 ## Running with vLLM
 
 For GPU inference on Linux or WSL2, install the optional backend. The NVIDIA install below
