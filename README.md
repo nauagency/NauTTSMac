@@ -234,6 +234,21 @@ m.generate_to_file("One day, a little girl named Lily found a needle in her room
 
 See the [MLX guide](docs/mlx.md) for benchmarks and the full details.
 
+### Native macOS app
+
+This fork includes a native SwiftUI front end that runs the existing MLX engine locally. From the
+repository root, create the Python environment once and then launch the app:
+
+```bash
+uv venv --python 3.12 .venv
+uv pip install --python .venv/bin/python -e ".[mlx]"
+swift run KittenTTSMac
+```
+
+Enter text, choose a built-in voice and save the generated WAV file. The app passes arguments
+directly to `macos/engine.py` without invoking a shell. Model files are downloaded by the existing
+KittenTTS/Hugging Face code on first use and remain outside the Git repository.
+
 ## Running with vLLM
 
 For GPU inference on Linux or WSL2, install the optional backend. The NVIDIA install below
