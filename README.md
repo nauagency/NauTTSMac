@@ -234,26 +234,26 @@ m.generate_to_file("One day, a little girl named Lily found a needle in her room
 
 See the [MLX guide](docs/mlx.md) for benchmarks and the full details.
 
-### Native macOS app
+### Nau TTS Mac
 
-This fork includes a native SwiftUI front end that runs the existing MLX engine locally. From the
+Nau TTS Mac is a native SwiftUI front end that runs the Nau TTS MLX engine locally. From the
 repository root, create the Python environment once and then launch the app:
 
 ```bash
 uv venv --python 3.12 .venv
 uv pip install --python .venv/bin/python -e ".[mlx]"
-swift run KittenTTSMac
+swift run NauTTSMac
 ```
 
 Enter text, choose a built-in voice and save the generated WAV file. The app passes arguments
-directly to `macos/engine.py` without invoking a shell. Model files are downloaded by the existing
-KittenTTS/Hugging Face code on first use and remain outside the Git repository.
+directly to `macos/engine.py` without invoking a shell. Model files are downloaded on first use
+and remain outside the Git repository.
 
 To build a normal `.app` bundle with an application icon and install it for the current user:
 
 ```bash
 ./macos/build-app.sh --install
-open "$HOME/Applications/KittenTTS Mac.app"
+open "/Applications/Nau TTS Mac.app"
 ```
 
 ## Running with vLLM

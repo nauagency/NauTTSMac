@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Small, shell-free bridge between the SwiftUI app and KittenTTS MLX."""
+"""Shell-free bridge used by the Nau TTS Mac application."""
 
 from __future__ import annotations
 
@@ -10,7 +10,7 @@ from pathlib import Path
 
 
 def parser() -> argparse.ArgumentParser:
-    result = argparse.ArgumentParser(description="Generate speech for KittenTTSMac")
+    result = argparse.ArgumentParser(description="Generate speech for Nau TTS Mac")
     result.add_argument("--check", action="store_true", help="validate the local MLX install")
     result.add_argument("--text")
     result.add_argument("--voice", default="Bruno")
@@ -28,7 +28,7 @@ def main() -> int:
 
     try:
         import mlx.core as mx
-        from kittenml import KittenTTS
+        from kittenml import KittenTTS as NauTTS
 
         if args.check:
             emit({"ok": True, "device": str(mx.default_device()), "backend": "mlx"})
@@ -44,7 +44,7 @@ def main() -> int:
             raise ValueError("File đầu ra phải có đuôi .wav.")
         output.parent.mkdir(parents=True, exist_ok=True)
 
-        model = KittenTTS("KittenML/kitten-tts-2", backend="mlx")
+        model = NauTTS("KittenML/kitten-tts-2", backend="mlx")
         model.generate_to_file(
             args.text.strip(),
             str(output),

@@ -2,15 +2,15 @@
 import PackageDescription
 
 let package = Package(
-    name: "KittenTTSMac",
+    name: "NauTTSMac",
     platforms: [.macOS(.v13)],
     products: [
-        .executable(name: "KittenTTSMac", targets: ["KittenTTSMac"]),
+        .executable(name: "NauTTSMac", targets: ["NauTTSMac"]),
     ],
     targets: [
         .executableTarget(
-            name: "KittenTTSMac",
-            path: "macos/KittenTTSMac"
+            name: "NauTTSMac",
+            path: "macos/NauTTSMac"
         ),
     ]
 )

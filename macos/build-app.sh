@@ -2,7 +2,7 @@
 set -euo pipefail
 
 repo_root="$(cd "$(dirname "$0")/.." && pwd)"
-app_name="KittenTTS Mac.app"
+app_name="Nau TTS Mac.app"
 build_root="$repo_root/dist/macos"
 app_path="$build_root/$app_name"
 contents="$app_path/Contents"
@@ -14,9 +14,9 @@ swift build --package-path "$repo_root" -c release
 
 rm -rf "$app_path" "$iconset" "$square_icon"
 mkdir -p "$contents/MacOS" "$contents/Resources" "$iconset"
-cp "$repo_root/.build/release/KittenTTSMac" "$contents/MacOS/KittenTTSMac"
+cp "$repo_root/.build/release/NauTTSMac" "$contents/MacOS/NauTTSMac"
 cp "$repo_root/macos/Info.plist" "$contents/Info.plist"
-/usr/libexec/PlistBuddy -c "Set :KittenTTSProjectRoot $repo_root" "$contents/Info.plist"
+/usr/libexec/PlistBuddy -c "Set :NauTTSProjectRoot $repo_root" "$contents/Info.plist"
 
 sips -c 768 768 "$source_icon" --out "$square_icon" >/dev/null
 

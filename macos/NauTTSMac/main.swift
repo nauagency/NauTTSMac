@@ -25,7 +25,7 @@ private enum EngineError: LocalizedError {
 
     var errorDescription: String? {
         switch self {
-        case .missingFile(let path): return "Không tìm thấy \(path). Hãy chạy ứng dụng từ thư mục KittenTTS."
+        case .missingFile(let path): return "Không tìm thấy \(path). Hãy cài lại Nau TTS Mac từ thư mục dự án."
         case .invalidResponse(let message): return "Engine trả về dữ liệu không hợp lệ: \(message)"
         case .failed(let message): return message
         }
@@ -34,7 +34,7 @@ private enum EngineError: LocalizedError {
 
 private enum EngineRunner {
     static func projectRoot() -> URL {
-        if let configured = Bundle.main.object(forInfoDictionaryKey: "KittenTTSProjectRoot") as? String,
+        if let configured = Bundle.main.object(forInfoDictionaryKey: "NauTTSProjectRoot") as? String,
            configured != "__PROJECT_ROOT__",
            FileManager.default.fileExists(atPath: configured) {
             return URL(fileURLWithPath: configured, isDirectory: true)
@@ -47,7 +47,7 @@ private enum EngineRunner {
         let bridge = request.projectRoot.appendingPathComponent("macos/engine.py")
 
         guard FileManager.default.isExecutableFile(atPath: python.path) else {
-            throw EngineError.missingFile(".venv/bin/python")
+            throw EngineError.missingFile("môi trường Nau TTS (.venv/bin/python)")
         }
         guard FileManager.default.fileExists(atPath: bridge.path) else {
             throw EngineError.missingFile("macos/engine.py")
@@ -56,7 +56,7 @@ private enum EngineRunner {
         let process = Process()
         let outputPipe = Pipe()
         let logURL = FileManager.default.temporaryDirectory
-            .appendingPathComponent("KittenTTSMac-\(UUID().uuidString).log")
+            .appendingPathComponent("NauTTSMac-\(UUID().uuidString).log")
         FileManager.default.createFile(atPath: logURL.path, contents: nil)
         let logHandle = try FileHandle(forWritingTo: logURL)
         defer {
@@ -95,7 +95,7 @@ private enum EngineRunner {
 
 @MainActor
 private final class AppModel: ObservableObject {
-    @Published var text = "Xin chào! Đây là Kitten TTS đang chạy bằng MLX trên máy Mac."
+    @Published var text = "Xin chào! Đây là Nau TTS đang chạy bằng MLX trên máy Mac."
     @Published var voice = "Bruno"
     @Published var preset = "stable"
     @Published var isGenerating = false
@@ -143,7 +143,7 @@ private struct ContentView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 18) {
             VStack(alignment: .leading, spacing: 4) {
-                Text("Kitten TTS for Mac")
+                Text("Nau TTS Mac")
                     .font(.largeTitle.bold())
                 Text("Tạo giọng nói cục bộ bằng SwiftUI + MLX")
                     .foregroundStyle(.secondary)
@@ -190,7 +190,7 @@ private struct ContentView: View {
 }
 
 @main
-private struct KittenTTSMacApp: App {
+private struct NauTTSMacApp: App {
     var body: some Scene {
         WindowGroup { ContentView() }
             .defaultSize(width: 760, height: 560)
