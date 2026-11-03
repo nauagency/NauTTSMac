@@ -8,7 +8,7 @@ app_path="$build_root/$app_name"
 contents="$app_path/Contents"
 iconset="$build_root/AppIcon.iconset"
 square_icon="$build_root/AppIcon-square.png"
-source_icon="$repo_root/assets/banner.png"
+source_icon="$repo_root/assets/nau-tts-mac-icon.png"
 
 swift build --package-path "$repo_root" -c release
 
@@ -18,7 +18,7 @@ cp "$repo_root/.build/release/NauTTSMac" "$contents/MacOS/NauTTSMac"
 cp "$repo_root/macos/Info.plist" "$contents/Info.plist"
 /usr/libexec/PlistBuddy -c "Set :NauTTSProjectRoot $repo_root" "$contents/Info.plist"
 
-sips -c 768 768 "$source_icon" --out "$square_icon" >/dev/null
+sips -c 1024 1024 "$source_icon" --out "$square_icon" >/dev/null
 
 for size in 16 32 128 256 512; do
     double=$((size * 2))
