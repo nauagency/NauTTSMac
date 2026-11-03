@@ -14,6 +14,8 @@ private struct GenerationRequest: Sendable {
     let projectRoot: URL
     let text: String
     let voice: String
+    let reference: URL?
+    let referenceText: String
     let preset: String
     let output: URL
 }
@@ -69,10 +71,17 @@ private enum EngineRunner {
         process.arguments = [
             bridge.path,
             "--text", request.text,
-            "--voice", request.voice,
             "--preset", request.preset,
             "--output", request.output.path,
         ]
+        if let reference = request.reference {
+            process.arguments?.append(contentsOf: ["--reference", reference.path])
+            if !request.referenceText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+                process.arguments?.append(contentsOf: ["--reference-text", request.referenceText])
+            }
+        } else {
+            process.arguments?.append(contentsOf: ["--voice", request.voice])
+        }
         process.standardOutput = outputPipe
         process.standardError = logHandle
 
@@ -95,12 +104,40 @@ private enum EngineRunner {
 
 @MainActor
 private final class AppModel: ObservableObject {
+    enum VoiceMode: String, CaseIterable, Identifiable {
+        case builtIn
+        case clone
+
+        var id: Self { self }
+        var title: String { self == .builtIn ? "Giọng có sẵn" : "Clone giọng" }
+    }
+
     @Published var text = "Xin chào! Đây là Nau TTS đang chạy bằng MLX trên máy Mac."
+    @Published var voiceMode = VoiceMode.builtIn
     @Published var voice = "Bruno"
+    @Published var referenceURL: URL?
+    @Published var referenceText = ""
     @Published var preset = "stable"
     @Published var isGenerating = false
     @Published var status = "Sẵn sàng · MLX trên Apple Silicon"
     @Published var lastOutput: URL?
+
+    var canGenerate: Bool {
+        guard !isGenerating, !text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
+            return false
+        }
+        return voiceMode == .builtIn || referenceURL != nil
+    }
+
+    func chooseReference() {
+        let panel = NSOpenPanel()
+        panel.title = "Chọn đoạn ghi âm 5–30 giây"
+        panel.allowedContentTypes = [.audio]
+        panel.allowsMultipleSelection = false
+        guard panel.runModal() == .OK else { return }
+        referenceURL = panel.url
+        status = "Đã chọn giọng tham chiếu: \(panel.url?.lastPathComponent ?? "")"
+    }
 
     func chooseOutputAndGenerate() {
         let panel = NSSavePanel()
@@ -113,6 +150,8 @@ private final class AppModel: ObservableObject {
             projectRoot: EngineRunner.projectRoot(),
             text: text,
             voice: voice,
+            reference: voiceMode == .clone ? referenceURL : nil,
+            referenceText: referenceText,
             preset: preset,
             output: output
         )
@@ -156,8 +195,13 @@ private struct ContentView: View {
                 .background(.quaternary.opacity(0.35), in: RoundedRectangle(cornerRadius: 10))
 
             HStack(spacing: 16) {
-                TextField("Giọng đọc", text: $model.voice)
-                    .textFieldStyle(.roundedBorder)
+                Picker("Nguồn giọng", selection: $model.voiceMode) {
+                    ForEach(AppModel.VoiceMode.allCases) { mode in
+                        Text(mode.title).tag(mode)
+                    }
+                }
+                .pickerStyle(.segmented)
+                .frame(width: 260)
                 Picker("Phong cách", selection: $model.preset) {
                     Text("Ổn định").tag("stable")
                     Text("Biểu cảm").tag("expressive")
@@ -166,10 +210,28 @@ private struct ContentView: View {
                 .frame(width: 220)
             }
 
+            if model.voiceMode == .builtIn {
+                TextField("Tên giọng có sẵn, ví dụ Bruno, Luna, Kiki", text: $model.voice)
+                    .textFieldStyle(.roundedBorder)
+            } else {
+                VStack(alignment: .leading, spacing: 10) {
+                    HStack {
+                        Button("Chọn file giọng…") { model.chooseReference() }
+                        Text(model.referenceURL?.lastPathComponent ?? "Chưa chọn file (cần 5–30 giây, một người nói)")
+                            .foregroundStyle(model.referenceURL == nil ? .secondary : .primary)
+                            .lineLimit(1)
+                    }
+                    TextField("Nội dung được nói trong file (tùy chọn, giúp xử lý nhanh hơn)", text: $model.referenceText)
+                        .textFieldStyle(.roundedBorder)
+                }
+                .padding(12)
+                .background(.quaternary.opacity(0.25), in: RoundedRectangle(cornerRadius: 10))
+            }
+
             HStack {
                 Button("Tạo file WAV") { model.chooseOutputAndGenerate() }
                     .buttonStyle(.borderedProminent)
-                    .disabled(model.isGenerating || model.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
+                    .disabled(!model.canGenerate)
 
                 if model.isGenerating { ProgressView().controlSize(.small) }
 

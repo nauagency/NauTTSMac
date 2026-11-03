@@ -14,6 +14,8 @@ def parser() -> argparse.ArgumentParser:
     result.add_argument("--check", action="store_true", help="validate the local MLX install")
     result.add_argument("--text")
     result.add_argument("--voice", default="Bruno")
+    result.add_argument("--reference", type=Path)
+    result.add_argument("--reference-text")
     result.add_argument("--output", type=Path)
     result.add_argument("--preset", choices=("stable", "expressive"), default="stable")
     return result
@@ -44,12 +46,23 @@ def main() -> int:
             raise ValueError("File đầu ra phải có đuôi .wav.")
         output.parent.mkdir(parents=True, exist_ok=True)
 
+        speaker: dict[str, str] = {}
+        if args.reference is not None:
+            reference = args.reference.expanduser().resolve()
+            if not reference.is_file():
+                raise ValueError("Không tìm thấy file giọng tham chiếu.")
+            speaker["reference"] = str(reference)
+            if args.reference_text and args.reference_text.strip():
+                speaker["reference_text"] = args.reference_text.strip()
+        else:
+            speaker["voice"] = args.voice.strip() or "Bruno"
+
         model = NauTTS("KittenML/kitten-tts-2", backend="mlx")
         model.generate_to_file(
             args.text.strip(),
             str(output),
-            voice=args.voice.strip() or "Bruno",
             preset=args.preset,
+            **speaker,
         )
         emit({"ok": True, "output": str(output), "backend": "mlx"})
         return 0
