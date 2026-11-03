@@ -1,17 +1,22 @@
-# Kitten-TTS
+# Nau TTS Mac
 
 <p align="center">
-  <img alt="Kitten TTS" src="https://raw.githubusercontent.com/KittenML/KittenTTS/main/assets/kitten_tts_2_announcement.png" />
+  <img alt="Nau TTS Mac" src="assets/nau-tts-mac-icon.png" width="220" />
 </p>
 
-<p align="center">
-  <a href="https://huggingface.co/spaces/KittenML/KittenTTS-Demo"><img src="https://img.shields.io/badge/Demo-Hugging%20Face%20Spaces-orange" alt="Hugging Face Demo"></a>
-  <a href="https://discord.com/invite/VJ86W4SURW"><img src="https://img.shields.io/badge/Discord-Join%20Community-5865F2?logo=discord&logoColor=white" alt="Discord"></a>
-  <a href="https://kittenml.com"><img src="https://img.shields.io/badge/Website-kittenml.com-blue" alt="Website"></a>
-  <a href="LICENSE"><img src="https://img.shields.io/badge/License-Apache_2.0-green.svg" alt="License"></a>
-</p>
+Ứng dụng TTS native dành cho Apple Silicon, có giao diện SwiftUI mang thương hiệu Nau và chạy
+engine MLX ngay trên máy Mac. Ứng dụng quản lý Voice mặc định, Voice tự tạo và lịch sử âm thanh
+đã xuất trong các màn hình riêng.
 
-> ## **New:** Free Kitten-TTS 2 API available at  [https://platform.kittenml.com](https://platform.kittenml.com/)
+## Tính năng của ứng dụng Mac
+
+- 176 Voice mặc định trong cài đặt hiện tại: 115 voice Nau TTS và 61 voice tham chiếu đã nhập.
+- Lọc voice theo giới tính, nguồn, tông giọng và cách sắp xếp ngay trong màn hình Tạo âm thanh.
+- Thư viện giọng riêng để quản lý Voice mặc định và Voice tự tạo.
+- Lịch sử âm thanh lưu cả file, voice, thời gian và nội dung văn bản đã dùng.
+- Không lưu API key Google hoặc ElevenLabs trong ứng dụng hay mã nguồn.
+
+## Engine nguồn mở
 
 Kitten-TTS is a series of sota open-source text-to-speech models, built by KittenML. Its flagship model, **Kitten-TTS 2**, is a
 1.7B-parameter 1-bit TTS model with in-context voice cloning and expression control. It provides SOTA quality while being so efficient that it runs realtime on CPUs and consumer GPU's!

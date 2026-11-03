@@ -16,6 +16,7 @@ rm -rf "$app_path" "$iconset" "$square_icon"
 mkdir -p "$contents/MacOS" "$contents/Resources" "$iconset"
 cp "$repo_root/.build/release/NauTTSMac" "$contents/MacOS/NauTTSMac"
 cp "$repo_root/macos/Info.plist" "$contents/Info.plist"
+cp "$repo_root/macos/builtin-voices.json" "$contents/Resources/builtin-voices.json"
 /usr/libexec/PlistBuddy -c "Set :NauTTSProjectRoot $repo_root" "$contents/Info.plist"
 
 cp "$source_icon" "$square_icon"

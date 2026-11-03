@@ -60,12 +60,6 @@ private enum AppPage: String, CaseIterable, Identifiable {
     }
 }
 
-private enum VoiceSource: String, CaseIterable, Identifiable {
-    case builtIn, created
-    var id: Self { self }
-    var title: String { self == .builtIn ? "Giọng có sẵn" : "Giọng đã tạo" }
-}
-
 private enum EngineError: LocalizedError {
     case failed(String)
     var errorDescription: String? { if case .failed(let message) = self { message } else { nil } }
@@ -145,6 +139,7 @@ private final class AppModel: ObservableObject {
         indexURL = appDirectory.appendingPathComponent("voices.json")
         historyURL = appDirectory.appendingPathComponent("audio-history.json")
         try? FileManager.default.createDirectory(at: voiceDirectory, withIntermediateDirectories: true)
+        loadBundledVoices()
         loadProfiles()
         loadHistory()
     }
@@ -192,7 +187,7 @@ private final class AppModel: ObservableObject {
     func audioURL(_ profile: VoiceProfile) -> URL { voiceDirectory.appendingPathComponent(profile.audioFileName) }
 
     func loadVoices() {
-        guard !loadingVoices else { return }
+        guard !loadingVoices, voices.count < 100 else { return }
         loadingVoices = true
         Task {
             do {
@@ -264,6 +259,13 @@ private final class AppModel: ObservableObject {
         profiles = saved.filter { FileManager.default.fileExists(atPath: audioURL($0).path) }
         selectedProfileID = profiles.first?.id
     }
+    private func loadBundledVoices() {
+        let bundled = Bundle.main.url(forResource: "builtin-voices", withExtension: "json")
+        let source = bundled ?? EngineRunner.root().appendingPathComponent("macos/builtin-voices.json")
+        guard let data = try? Data(contentsOf: source),
+              let saved = try? JSONDecoder().decode([String].self, from: data), !saved.isEmpty else { return }
+        voices = saved.sorted { $0.localizedCaseInsensitiveCompare($1) == .orderedAscending }
+    }
     private func saveProfiles() throws {
         let encoder = JSONEncoder(); encoder.outputFormatting = [.prettyPrinted, .sortedKeys]
         try encoder.encode(profiles).write(to: indexURL, options: .atomic)
@@ -324,8 +326,8 @@ private struct HomeView: View {
 
     @ViewBuilder private var voiceContent: some View {
         Group {
-                HStack { metric("Giọng có sẵn", model.availableVoiceCount); metric("Giọng tự tạo", model.profiles.filter { ($0.provider ?? "Cục bộ") == "Cục bộ" }.count) }
-                header("Thư viện giọng có sẵn", button: "Quản lý") { model.page = .library }
+                HStack { metric("Voice mặc định", model.availableVoiceCount); metric("Voice tự tạo", model.profiles.filter { ($0.provider ?? "Cục bộ") == "Cục bộ" }.count) }
+                header("Voice mặc định", button: "Quản lý") { model.page = .library }
                 if model.profiles.isEmpty {
                     VStack(spacing: 8) {
                         Image(systemName: "person.wave.2").font(.largeTitle).foregroundStyle(.secondary)
@@ -436,10 +438,16 @@ private struct CreateView: View {
             VoiceFilters(model: model)
             Picker("Giọng đọc", selection: $model.selectedCatalogID) {
                 Section("Nau TTS") {
-                    ForEach(model.voices, id: \.self) { Text($0).tag("nau:\($0)") }
+                    ForEach(model.filteredBuiltInVoices, id: \.self) { Text($0).tag("nau:\($0)") }
                 }
-                Section("Google, ElevenLabs và giọng tự tạo") {
-                    ForEach(model.filteredProfiles) { profile in
+                Section("Voice mặc định") {
+                    ForEach(model.filteredProfiles.filter { ($0.provider ?? "Cục bộ") != "Cục bộ" }) { profile in
+                        Text([profile.name, profile.gender, profile.tone].compactMap { $0 }.joined(separator: " · "))
+                            .tag("profile:\(profile.id)")
+                    }
+                }
+                Section("Voice tự tạo") {
+                    ForEach(model.filteredProfiles.filter { ($0.provider ?? "Cục bộ") == "Cục bộ" }) { profile in
                         Text([profile.name, profile.gender, profile.tone].compactMap { $0 }.joined(separator: " · "))
                             .tag("profile:\(profile.id)")
                     }
@@ -476,7 +484,7 @@ private struct LibraryView: View {
                         .disabled(name.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty || sourceURL == nil)
                     if let error { Text(error).foregroundStyle(.red) } }
             }.padding(8) }
-            Text("Thư viện voice (\(model.availableVoiceCount))").font(.title2.bold())
+            Text("Voice mặc định (\(model.availableVoiceCount))").font(.title2.bold())
             VoiceFilters(model: model)
             if !model.filteredBuiltInVoices.isEmpty {
                 Text("Nau TTS (\(model.filteredBuiltInVoices.count))").font(.headline)
@@ -486,35 +494,47 @@ private struct LibraryView: View {
                     }
                 }
             }
-            if !model.filteredProfiles.isEmpty {
-                Text("Voice local (\(model.filteredProfiles.count))").font(.headline)
+            let defaultProfiles = model.filteredProfiles.filter { ($0.provider ?? "Cục bộ") != "Cục bộ" }
+            let customProfiles = model.filteredProfiles.filter { ($0.provider ?? "Cục bộ") == "Cục bộ" }
+            if !defaultProfiles.isEmpty {
+                Text("Voice mặc định (\(defaultProfiles.count))")
+                    .font(.headline)
+                profileGrid(defaultProfiles, canDelete: false)
             }
-            LazyVGrid(columns: [GridItem(.adaptive(minimum: 245), spacing: 12)], spacing: 12) {
-                ForEach(model.filteredProfiles) { profile in
-                    VStack(alignment: .leading, spacing: 10) {
-                        HStack {
-                            Image(systemName: "waveform.circle.fill").font(.title).foregroundStyle(.tint)
-                            Text(profile.name).font(.headline).lineLimit(2)
-                            Spacer()
-                        }
-                        Text([profile.provider ?? "Cục bộ", profile.gender ?? "Chưa phân loại", profile.tone ?? "Chưa có tông"]
-                            .joined(separator: " · "))
-                            .font(.caption).foregroundStyle(.secondary).lineLimit(2)
-                        HStack {
-                            Button("Sử dụng") { model.use(profile) }.buttonStyle(.borderedProminent)
-                            Spacer()
-                            Button(role: .destructive) { deleting = profile } label: { Image(systemName: "trash") }
-                        }
-                    }
-                    .padding(14)
-                    .background(.quaternary.opacity(0.25), in: RoundedRectangle(cornerRadius: 12))
-                }
+            if !customProfiles.isEmpty {
+                Text("Voice tự tạo (\(customProfiles.count))").font(.headline)
+                profileGrid(customProfiles, canDelete: true)
             }
         }.padding(28) }.frame(minWidth: 720, minHeight: 580)
         .alert("Xóa giọng?", isPresented: Binding(get: { deleting != nil }, set: { if !$0 { deleting = nil } })) {
             Button("Hủy", role: .cancel) { deleting = nil }
             Button("Xóa", role: .destructive) { if let deleting { model.deleteProfile(deleting) }; deleting = nil }
         } message: { Text("File ghi âm và thông tin đã lưu sẽ bị xóa khỏi máy.") }
+    }
+    private func profileGrid(_ profiles: [VoiceProfile], canDelete: Bool) -> some View {
+        LazyVGrid(columns: [GridItem(.adaptive(minimum: 245), spacing: 12)], spacing: 12) {
+            ForEach(profiles) { profile in
+                VStack(alignment: .leading, spacing: 10) {
+                    HStack {
+                        Image(systemName: "waveform.circle.fill").font(.title).foregroundStyle(.tint)
+                        Text(profile.name).font(.headline).lineLimit(2)
+                        Spacer()
+                    }
+                    Text([profile.provider ?? "Voice tự tạo", profile.gender ?? "Chưa phân loại", profile.tone ?? "Chưa có tông"]
+                        .joined(separator: " · "))
+                        .font(.caption).foregroundStyle(.secondary).lineLimit(2)
+                    HStack {
+                        Button("Sử dụng") { model.use(profile) }.buttonStyle(.borderedProminent)
+                        Spacer()
+                        if canDelete {
+                            Button(role: .destructive) { deleting = profile } label: { Image(systemName: "trash") }
+                        }
+                    }
+                }
+                .padding(14)
+                .background(.quaternary.opacity(0.25), in: RoundedRectangle(cornerRadius: 12))
+            }
+        }
     }
     private func voiceCard(title: String, metadata: String, action: @escaping () -> Void) -> some View {
         VStack(alignment: .leading, spacing: 10) {
